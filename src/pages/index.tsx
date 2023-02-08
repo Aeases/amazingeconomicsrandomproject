@@ -6,6 +6,7 @@ import { Chart } from 'react-chartjs-2';
 //import * as CUtils from '../utils/chartutils'
 import { ChangeEvent, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import React from "react";
 
 const Home: NextPage = () => {
   const [Country, setCountry] = useState('au')
@@ -53,6 +54,8 @@ const Home: NextPage = () => {
     }]
   };
 
+  const inputField = React.useRef() as React.MutableRefObject<HTMLInputElement>;
+
 
   return (
     <>
@@ -76,6 +79,8 @@ const Home: NextPage = () => {
             <option value="pl">Poland</option>
             <option value="jp">Japan</option>
           </select>
+          <input ref={inputField} type="text" placeholder="e.g. usa or au" className="p-2 w-12"/>
+          <button onClick={() => {setCountry(inputField.current.value)}} className="p-2 hover:bg-slate-400 transition-colors">Check Country</button> 
           <select value={Target} onChange={(e) => setTarget(e.target.value)}>
             <option value="FR.INR.RINR">Real Interest Rates (%)</option>
             <option value="NY.GDP.MKTP.CD">GDP (Current $USD)</option>
