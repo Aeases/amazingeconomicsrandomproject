@@ -22,31 +22,36 @@ const Home: NextPage = () => {
   function GetIRFromXML(x: Document) {
     const list = x.getElementsByTagName("wb:data")
     const map = new Map()
+    const names = new Map()
     for (let i=0; i<list.length; i++) {
       const ListItem = list[i]
       const ListItemValueUnverified = ListItem?.getElementsByTagName('wb:value').item(0)?.innerHTML
       const ListItemValue = Number(ListItemValueUnverified)
       const ListItemYear = ListItem?.getElementsByTagName('wb:date').item(0)?.innerHTML
+      const ListItemName = ListItem?.getElementsByTagName('wb:country').item(0)?.innerHTML
       // ! I Hate XML
       if (ListItemValue > 0 || ListItemValue < 0) {
         map.set(ListItemYear, ListItemValue)
+        names.set(i, ListItemName)
       }
 
     }
-    return(map)
+    return({map, names})
   }
 
-  const years = InterestValues.then((e) => {return([...e.keys()])}).catch((e) => {return(e)})
-  const Interests = InterestValues.then((e) => {return([...e.values()])}).catch((e) => {return(e)})
+  const years = InterestValues.then((e) => {return([...e.map.keys()])}).catch((e) => {return(e)})
+  const Interests = InterestValues.then((e) => {return([...e.map.values()])}).catch((e) => {return(e)})
+  const name = InterestValues.then((e) => {return([...e.names.values()])}).catch((e) => {return(e)})
   years.then((e) => setYearState(e))
   Interests.then((e) => setInterestRate(e))
+  name.then((e) => {setCurrentCountryName(e)})
   const [yearState, setYearState] = useState([0])
   const [InterestRate, setInterestRate] = useState([0])
-
+  const [CurrentCountryName, setCurrentCountryName] = useState([''])
   const chartData = {
     labels: yearState,
     datasets: [{
-      label: Target,
+      label: CurrentCountryName.at(0),
       data: InterestRate,
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
