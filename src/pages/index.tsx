@@ -9,7 +9,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const Home: NextPage = () => {
   const [Country, setCountry] = useState('au')
-  const APIURL = `http://api.worldbank.org/v2/country/${Country}/indicator/FR.INR.RINR`
+  const APIURL = `https://api.worldbank.org/v2/country/${Country}/indicator/FR.INR.RINR`
   const GetData = async() => {
     const Data = await fetch(APIURL)
     const ParsedData = new window.DOMParser().parseFromString(await Data.text(), "text/xml")
