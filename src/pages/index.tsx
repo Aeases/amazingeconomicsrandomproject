@@ -69,17 +69,20 @@ const Home: NextPage = () => {
           <div className="flex gap-2 p-2 bg-[#09c6ff7c] rounded-md">
           <select value={Country} onChange={(e) => setCountry(e.target.value)}>
             <option value="au">Australia</option>
-            <option value="am">Armenia</option>
+            <option value="eu">European Union</option>
+            <option value="cn">China</option>
             <option value="usa">America</option>
             <option value="zw">Zimbabwe</option>
+            <option value="pl">Poland</option>
+            <option value="jp">Japan</option>
           </select>
           <select value={Target} onChange={(e) => setTarget(e.target.value)}>
-            <option value="FR.INR.RINR">Interest Rates</option>
+            <option value="FR.INR.RINR">Real Interest Rates (%)</option>
             <option value="NY.GDP.MKTP.CD">GDP (Current $USD)</option>
-            <option value="SE.PRM.CMPT.FE.ZS">Child Mortality Rates</option>
-            <option value="EN.ATM.CO2E.KT">Carbon Emissions</option>
-            <option value="SH.STA.SUIC.P5">Suicide Rate</option>
-            <option value="SI.POV.DDAY">Poverty Headcount Ratio</option>
+            <option value="SP.DYN.IMRT.IN">Infant Mortality Rate (per 1,000 Live Births)</option>
+            <option value="EN.ATM.CO2E.KT">Carbon Emissions (kt)</option>
+            <option value="SH.STA.SUIC.P5">Suicide Rate (per 100,000)</option>
+            <option value="VC.IHR.PSRC.P5">Homicide Rate (per 100,000 people)</option>
           </select>
           </div>
 
