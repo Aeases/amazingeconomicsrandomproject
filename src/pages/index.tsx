@@ -68,6 +68,7 @@ const Home: NextPage = () => {
             <option value="au">Australia</option>
             <option value="am">Armenia</option>
             <option value="usa">America</option>
+            <option value="zw">Zimbabwe</option>
           </select>
           <select value={Target} onChange={(e) => setTarget(e.target.value)}>
             <option value="FR.INR.RINR">Interest Rates</option>
