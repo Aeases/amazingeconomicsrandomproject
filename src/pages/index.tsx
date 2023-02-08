@@ -88,6 +88,7 @@ const Home: NextPage = () => {
             <option value="SP.POP.TOTL">Population</option>
             <option value="EN.ATM.CO2E.KT">Carbon Emissions (kt)</option>
             <option value="SH.STA.SUIC.P5">Suicide Rate (per 100,000)</option>
+            <option value="SI.POV.GINI">Gini Index</option>
             <option value="VC.IHR.PSRC.P5">Homicide Rate (per 100,000 people)</option>
           </select>
           </div>
