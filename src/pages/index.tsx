@@ -80,6 +80,7 @@ const Home: NextPage = () => {
             <option value="FR.INR.RINR">Real Interest Rates (%)</option>
             <option value="NY.GDP.MKTP.CD">GDP (Current $USD)</option>
             <option value="SP.DYN.IMRT.IN">Infant Mortality Rate (per 1,000 Live Births)</option>
+            <option value="SP.POP.TOTL">Population</option>
             <option value="EN.ATM.CO2E.KT">Carbon Emissions (kt)</option>
             <option value="SH.STA.SUIC.P5">Suicide Rate (per 100,000)</option>
             <option value="VC.IHR.PSRC.P5">Homicide Rate (per 100,000 people)</option>
