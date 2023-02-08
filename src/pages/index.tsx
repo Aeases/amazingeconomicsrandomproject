@@ -27,7 +27,10 @@ const Home: NextPage = () => {
       const ListItemValue = Number(ListItemValueUnverified)
       const ListItemYear = ListItem?.getElementsByTagName('wb:date').item(0)?.innerHTML
       // ! I Hate XML
-      map.set(ListItemYear, ListItemValue)
+      if (ListItemValue > 0 || ListItemValue < 0) {
+        map.set(ListItemYear, ListItemValue)
+      }
+
     }
     return(map)
   }
