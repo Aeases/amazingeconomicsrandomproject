@@ -57,7 +57,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Create T3 App</title>
+        <title>Interest Rates for Places</title>
         <meta name="Economics Interest Rates" content="t3" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
