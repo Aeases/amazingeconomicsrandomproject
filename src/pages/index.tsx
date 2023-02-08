@@ -9,7 +9,8 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
 const Home: NextPage = () => {
   const [Country, setCountry] = useState('au')
-  const APIURL = `https://api.worldbank.org/v2/country/${Country}/indicator/FR.INR.RINR`
+  const [Target, setTarget] = useState('FR.INR.RINR')
+  const APIURL = `https://api.worldbank.org/v2/country/${Country}/indicator/${Target}`
   const GetData = async() => {
     const Data = await fetch(APIURL)
     const ParsedData = new window.DOMParser().parseFromString(await Data.text(), "text/xml")
@@ -38,14 +39,10 @@ const Home: NextPage = () => {
   const [yearState, setYearState] = useState([0])
   const [InterestRate, setInterestRate] = useState([0])
 
-  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
-      setCountry(event.target.value)
-  }
-
   const chartData = {
     labels: yearState,
     datasets: [{
-      label: 'Interest Rate',
+      label: Target,
       data: InterestRate,
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
@@ -66,11 +63,22 @@ const Home: NextPage = () => {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Interest <span className="text-[hsl(117,71%,54%)]">Rates</span> for <span className="text-[hsl(0,100%,59%)]">Places</span>
           </h1>
-          <select value={Country} onChange={(e) => handleChange(e)}>
+          <div className="flex gap-2 p-2 bg-[#09c6ff7c] rounded-md">
+          <select value={Country} onChange={(e) => setCountry(e.target.value)}>
             <option value="au">Australia</option>
             <option value="am">Armenia</option>
             <option value="usa">America</option>
           </select>
+          <select value={Target} onChange={(e) => setTarget(e.target.value)}>
+            <option value="FR.INR.RINR">Interest Rates</option>
+            <option value="NY.GDP.MKTP.CD">GDP (Current $USD)</option>
+            <option value="SE.PRM.CMPT.FE.ZS">Child Mortality Rates</option>
+            <option value="EN.ATM.CO2E.KT">Carbon Emissions</option>
+            <option value="SH.STA.SUIC.P5">Suicide Rate</option>
+            <option value="SI.POV.DDAY">Poverty Headcount Ratio</option>
+          </select>
+          </div>
+
           <p className="text-white">Made Using <a href="https://www.chartjs.org/" className="text-blue-400 underline">Chart.js</a>, the <a href="https://create.t3.gg/" className="text-blue-400 underline">T3 Stack</a>, and with <a href="https://data.worldbank.org/" className="text-blue-400 underline">Data from the World Bank</a></p>
           <Chart type='line' data={chartData}/>
         </div>
