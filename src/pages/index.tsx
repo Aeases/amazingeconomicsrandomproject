@@ -31,6 +31,7 @@ const Home: NextPage = () => {
       const ListItemName = ListItem?.getElementsByTagName('wb:country').item(0)?.innerHTML
       // ! I Hate XML
       if (ListItemValue > 0 || ListItemValue < 0) {
+        console.log(`[${ListItemName}] ${ListItemYear}, ${ListItemValue}`)
         map.set(ListItemYear, ListItemValue)
         names.set(i, ListItemName)
       }
@@ -48,6 +49,7 @@ const Home: NextPage = () => {
   const [yearState, setYearState] = useState([0])
   const [InterestRate, setInterestRate] = useState([0])
   const [CurrentCountryName, setCurrentCountryName] = useState([''])
+  const Statistics = {CurrentCountryName, yearState, InterestRate}
   const chartData = {
     labels: yearState,
     datasets: [{
@@ -69,7 +71,7 @@ const Home: NextPage = () => {
         <meta name="Economics Interest Rates" content="t3" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#02306d] to-[#072751] max-h-[100vh] overflow-hidden">
+      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#02306d] to-[#072751] overflow-hidden">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
             Interest <span className="text-[hsl(117,71%,54%)]">Rates</span> for <span className="text-[hsl(0,100%,59%)]">Places</span>
@@ -101,6 +103,9 @@ const Home: NextPage = () => {
           <p className="text-white">Made Using <a href="https://www.chartjs.org/" className="text-blue-400 underline">Chart.js</a>, the <a href="https://create.t3.gg/" className="text-blue-400 underline">T3 Stack</a>, and with <a href="https://data.worldbank.org/" className="text-blue-400 underline">Data from the World Bank</a></p>
           <Chart type='line' data={chartData}/>
         </div>
+        <ol className="gap-2 m-1">
+            {Statistics.CurrentCountryName.map((e, i) => {return(<li className="text-white m-1 bg-slate-900 rounded-md" key={i}><p>[{Statistics.CurrentCountryName[i]}] {Statistics.yearState[i]}, {Statistics.InterestRate[i]}</p></li>)})}
+          </ol>
       </main>
     </>
   );
