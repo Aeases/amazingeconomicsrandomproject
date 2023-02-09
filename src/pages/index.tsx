@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     const years = InterestValues.then((e) => {setYearState([...e.map.keys()])}).catch((e) => {setYearState(e)})
     const Interests = InterestValues.then((e) => {setInterestRate([...e.map.values()])}).catch((e) => {setInterestRate(e)})
     const name = InterestValues.then((e) => {setCurrentCountryName([...e.names.values()])}).catch((e) => {setCurrentCountryName(e)})
-  }, [Target])
+  }, [Target, Country])
 
 
   function GetIRFromXML(x: Document) {
