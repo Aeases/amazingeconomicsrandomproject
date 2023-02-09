@@ -4,7 +4,7 @@ import Link from "next/link";
 import 'chart.js/auto';
 import { Chart } from 'react-chartjs-2';
 //import * as CUtils from '../utils/chartutils'
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import React from "react";
 
@@ -17,7 +17,13 @@ const Home: NextPage = () => {
     const ParsedData = new window.DOMParser().parseFromString(await Data.text(), "text/xml")
     return ParsedData
   }
-  const InterestValues = GetData().then((e) => GetIRFromXML(e))
+  useEffect(() => {
+    const InterestValues = GetData().then((e) => GetIRFromXML(e))
+    const years = InterestValues.then((e) => {setYearState([...e.map.keys()])}).catch((e) => {setYearState(e)})
+    const Interests = InterestValues.then((e) => {setInterestRate([...e.map.values()])}).catch((e) => {setInterestRate(e)})
+    const name = InterestValues.then((e) => {setCurrentCountryName([...e.names.values()])}).catch((e) => {setCurrentCountryName(e)})
+  }, [Target])
+
 
   function GetIRFromXML(x: Document) {
     const list = x.getElementsByTagName("wb:data")
@@ -31,23 +37,20 @@ const Home: NextPage = () => {
       const ListItemName = ListItem?.getElementsByTagName('wb:country').item(0)?.innerHTML
       // ! I Hate XML
       if (ListItemValue > 0 || ListItemValue < 0) {
+        console.log(ListItemName)
         map.set(ListItemYear, ListItemValue)
         names.set(i, ListItemName)
       }
-
     }
     return({map, names})
   }
 
-  const years = InterestValues.then((e) => {return([...e.map.keys()])}).catch((e) => {return(e)})
-  const Interests = InterestValues.then((e) => {return([...e.map.values()])}).catch((e) => {return(e)})
-  const name = InterestValues.then((e) => {return([...e.names.values()])}).catch((e) => {return(e)})
-  years.then((e) => setYearState(e))
-  Interests.then((e) => setInterestRate(e))
-  name.then((e) => {setCurrentCountryName(e)})
+
   const [yearState, setYearState] = useState([0])
   const [InterestRate, setInterestRate] = useState([0])
   const [CurrentCountryName, setCurrentCountryName] = useState([''])
+
+  
   const chartData = {
     labels: yearState,
     datasets: [{
